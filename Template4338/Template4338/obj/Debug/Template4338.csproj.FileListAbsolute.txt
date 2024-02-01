@@ -1,0 +1,17 @@
+C:\Users\1\Desktop\Новая папка\Template4338\Template4338\bin\Debug\Template4338.exe.config
+C:\Users\1\Desktop\Новая папка\Template4338\Template4338\bin\Debug\Template4338.exe
+C:\Users\1\Desktop\Новая папка\Template4338\Template4338\bin\Debug\Template4338.pdb
+C:\Users\1\Desktop\Новая папка\Template4338\Template4338\obj\Debug\Template4338.csproj.AssemblyReference.cache
+C:\Users\1\Desktop\Новая папка\Template4338\Template4338\obj\Debug\4338_Petrova.g.cs
+C:\Users\1\Desktop\Новая папка\Template4338\Template4338\obj\Debug\MainWindow.g.cs
+C:\Users\1\Desktop\Новая папка\Template4338\Template4338\obj\Debug\App.g.cs
+C:\Users\1\Desktop\Новая папка\Template4338\Template4338\obj\Debug\Template4338_MarkupCompile.cache
+C:\Users\1\Desktop\Новая папка\Template4338\Template4338\obj\Debug\Template4338_MarkupCompile.lref
+C:\Users\1\Desktop\Новая папка\Template4338\Template4338\obj\Debug\MainWindow.baml
+C:\Users\1\Desktop\Новая папка\Template4338\Template4338\obj\Debug\4338_Petrova.baml
+C:\Users\1\Desktop\Новая папка\Template4338\Template4338\obj\Debug\Template4338.g.resources
+C:\Users\1\Desktop\Новая папка\Template4338\Template4338\obj\Debug\Template4338.Properties.Resources.resources
+C:\Users\1\Desktop\Новая папка\Template4338\Template4338\obj\Debug\Template4338.csproj.GenerateResource.cache
+C:\Users\1\Desktop\Новая папка\Template4338\Template4338\obj\Debug\Template4338.csproj.CoreCompileInputs.cache
+C:\Users\1\Desktop\Новая папка\Template4338\Template4338\obj\Debug\Template4338.exe
+C:\Users\1\Desktop\Новая папка\Template4338\Template4338\obj\Debug\Template4338.pdb
