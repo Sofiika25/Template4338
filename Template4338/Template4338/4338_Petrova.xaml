@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Template4338"
         mc:Ignorable="d"
-            Title="4338_Petrova" Height="80" Width="200">
+            Title="4338_Petrova" Height="180" Width="200">
     <StackPanel Background="Ivory">
         <TextBlock HorizontalAlignment="Center" Margin="20" Text="София 18 лет ;)" FontWeight="Bold"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="11*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <UniformGrid Grid.Row="0" Columns="2">
+                <Button Margin="5" FontSize="10" x:Name="BnExport" Click="BnExport_Click">Экспорт в Excel</Button>
+                <Button Margin="5" FontSize="10" x:Name="BnImport" Click="BnImport_Click">Импорт данных</Button>
+            </UniformGrid>
+ 
+        </Grid>
     </StackPanel>
 </Window>
