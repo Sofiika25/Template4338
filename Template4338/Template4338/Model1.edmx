@@ -15,8 +15,19 @@
           <Property Name="Код_услуги" Type="varchar" MaxLength="100" />
           <Property Name="Стоимость" Type="varchar" MaxLength="10" />
         </EntityType>
+        <EntityType Name="lr4">
+          <Key>
+            <PropertyRef Name="IdServices" />
+          </Key>
+          <Property Name="IdServices" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameServices" Type="nvarchar" MaxLength="50" />
+          <Property Name="TypeOfService" Type="nvarchar" MaxLength="50" />
+          <Property Name="CodeService" Type="nvarchar" MaxLength="50" />
+          <Property Name="Cost" Type="int" />
+        </EntityType>
         <EntityContainer Name="Хранилище ISRPO3ModelContainer">
           <EntitySet Name="ISRPO" EntityType="Self.ISRPO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lr4" EntityType="Self.lr4" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -33,15 +44,26 @@
           <Property Name="Код_услуги" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Стоимость" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="ISRPO3Entities4" annotation:LazyLoadingEnabled="true">
+        <EntityType Name="lr4">
+          <Key>
+            <PropertyRef Name="IdServices" />
+          </Key>
+          <Property Name="IdServices" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameServices" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TypeOfService" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodeService" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cost" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="ISRPO3Entities8" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ISRPO" EntityType="Self.ISRPO" />
+          <EntitySet Name="lr4" EntityType="Self.lr4" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище ISRPO3ModelContainer" CdmEntityContainer="ISRPO3Entities4">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ISRPO3ModelContainer" CdmEntityContainer="ISRPO3Entities8">
           <EntitySetMapping Name="ISRPO">
             <EntityTypeMapping TypeName="ISRPO3Model.ISRPO">
               <MappingFragment StoreEntitySet="ISRPO">
@@ -50,6 +72,17 @@
                 <ScalarProperty Name="Вид_услуги" ColumnName="Вид_услуги" />
                 <ScalarProperty Name="Код_услуги" ColumnName="Код_услуги" />
                 <ScalarProperty Name="Стоимость" ColumnName="Стоимость" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lr4">
+            <EntityTypeMapping TypeName="ISRPO3Model.lr4">
+              <MappingFragment StoreEntitySet="lr4">
+                <ScalarProperty Name="IdServices" ColumnName="IdServices" />
+                <ScalarProperty Name="NameServices" ColumnName="NameServices" />
+                <ScalarProperty Name="TypeOfService" ColumnName="TypeOfService" />
+                <ScalarProperty Name="CodeService" ColumnName="CodeService" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

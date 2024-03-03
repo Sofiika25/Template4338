@@ -13,6 +13,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Text.Json;
+using System.IO;
+using Newtonsoft.Json;
+using Xceed.Words.NET;
+using Xceed.Document.NET;
+
 
 namespace Template4338
 {
@@ -53,7 +59,7 @@ namespace Template4338
             ObjWorkBook.Close(false, Type.Missing, Type.Missing);
             ObjWorkExcel.Quit();
             GC.Collect();
-            using (ISRPO3Entities4 iSRPO3Entities = new ISRPO3Entities4())
+            using (ISRPO3Entities8 iSRPO3Entities = new ISRPO3Entities8())
             {
                 for (int i = 1; i < _rows; i++)
                 {
@@ -75,7 +81,7 @@ namespace Template4338
         {
             List<ISRPO> isrpo;
 
-            using (ISRPO3Entities4 iSRPO3Entities = new ISRPO3Entities4())
+            using (ISRPO3Entities8 iSRPO3Entities = new ISRPO3Entities8())
             {
                 isrpo = iSRPO3Entities.ISRPO.ToList().OrderBy(s => s.Стоимость).ToList();
             }
@@ -138,7 +144,94 @@ namespace Template4338
 
             app.Visible = true;
         }
+        private void BnImport_Click_JSON(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                DefaultExt = "*.json",
+                Filter = "JSON файлы (*.json)|*.json|Все файлы (*.*)|*.*",
+                Title = "Выберите файл JSON для добавления в базу данных"
+            };
+            if (!(openFileDialog.ShowDialog() == true))
+                return;
+            {
+                string jsonFilePath = openFileDialog.FileName;
+                List<lr4> lab = JsonConvert.DeserializeObject<List<lr4>>(File.ReadAllText(jsonFilePath));
+                using (ISRPO3Entities8 iSRPO3Entities = new ISRPO3Entities8())
+                {
+                    foreach (var lr4 in lab)
+                    {
+                        iSRPO3Entities.lr4.Add(new lr4()
+                        {
+                            NameServices = lr4.NameServices,
+                            TypeOfService = lr4.TypeOfService,
+                            CodeService = lr4.CodeService,
+                            Cost = lr4.Cost
+                        });
+                    }
 
+                    iSRPO3Entities.SaveChanges();
+                }
+            }
+
+
+        }
+        private void BnExport_Click_Word(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog()
+            {
+                DefaultExt = "*.docx",
+                Filter = "Документ Word (*.docx)|*.docx|Все файлы (*.*)|*.*",
+                Title = "Выберите место сохранения файла Word"
+            };
+
+            if (sfd.ShowDialog() == true)
+            {
+                string outputFilePath = sfd.FileName;
+
+                using (DocX document = DocX.Create(outputFilePath))
+                {
+                    using (ISRPO3Entities8 iSRPO3Entities = new ISRPO3Entities8())
+                    {
+                        // Filter and order data by cost
+                        var dataForSheet1 = iSRPO3Entities.lr4.Where(x => x.Cost >= 0 && x.Cost < 250).OrderBy(x => x.Cost).ToList();
+                        var dataForSheet2 = iSRPO3Entities.lr4.Where(x => x.Cost >= 250 && x.Cost < 800).OrderBy(x => x.Cost).ToList();
+                        var dataForSheet3 = iSRPO3Entities.lr4.Where(x => x.Cost >= 800).OrderBy(x => x.Cost).ToList();
+
+                        // Create Sheet 1
+                        InsertDataIntoWordSheet(document, dataForSheet1, "Стоимость от 0 до 250");
+
+                        // Create Sheet 2
+                        InsertDataIntoWordSheet(document, dataForSheet2, "Стоимость от 250 до 800");
+
+                        // Create Sheet 3
+                        InsertDataIntoWordSheet(document, dataForSheet3, "Стоимость от 800");
+                    }
+
+                    document.Save();
+                }
+
+                MessageBox.Show("Данные успешно сохранены в файл Word.");
+            }
+        }
+
+        private void InsertDataIntoWordSheet(DocX document, List<lr4> data, string sheetTitle)
+        {
+            if (data.Count == 0)
+                return;
+
+            // Create a new section (page) for each cost range
+            
+
+            document.InsertParagraph($"{sheetTitle}").FontSize(14).Bold().Alignment = Alignment.center;
+
+            foreach (var item in data)
+            {
+                document.InsertParagraph($"ID: {item.IdServices}, Название услуги: {item.NameServices}, Вид услуги: {item.TypeOfService}, Стоимость: {item.Cost}")
+                        .FontSize(12).Bold().Alignment = Alignment.left;
+            }
+            document.InsertSectionPageBreak();
+        }
 
 
 

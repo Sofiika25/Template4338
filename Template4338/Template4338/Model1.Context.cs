@@ -13,10 +13,10 @@ namespace Template4338
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ISRPO3Entities4 : DbContext
+    public partial class ISRPO3Entities8 : DbContext
     {
-        public ISRPO3Entities4()
-            : base("name=ISRPO3Entities4")
+        public ISRPO3Entities8()
+            : base("name=ISRPO3Entities8")
         {
         }
     
@@ -26,5 +26,6 @@ namespace Template4338
         }
     
         public DbSet<ISRPO> ISRPO { get; set; }
+        public DbSet<lr4> lr4 { get; set; }
     }
 }
